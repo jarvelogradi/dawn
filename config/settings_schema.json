@@ -1190,5 +1190,16 @@
         "info": "t:settings_schema.cart.settings.cart_drawer.collection.info"
       }
     ]
+  },
+  {
+    "name": "gradiweb",
+    "settings": [
+     {
+      "type": "paragraph",
+      "id": "color_list",
+      "label": "Colores",
+      "default": "Colores"
+     }
+    ]
   }
 ]
