@@ -1196,9 +1196,9 @@
     "settings": [
       {
         "type": "textarea",
-        "id": "home_welcome_message",
-        "label": "Welcome message",
-        "default": "Welcome to my shop!"
+        "id": "color_list",
+        "label": "Colors",
+        "default": "Colors"
       }
     ]
   }
