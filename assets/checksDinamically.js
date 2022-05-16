@@ -1,4 +1,5 @@
-const rooturl = "http://127.0.0.1:9292/"
+const rooturl = "http://127.0.0.1:9292/";
+let cartStatus = false;
 
 function handleChange(src) {
     let data = JSON.parse(src.value);
@@ -9,7 +10,6 @@ function handleChange(src) {
     inputData.value = JSON.stringify(data);
     labelPrice.innerHTML = moneyWithCurrency(data.price);
     productImage.src = data.featured_media.preview_image.src;
-    console.log(data);
 }
 
 function moneyWithCurrency(value) {
@@ -42,7 +42,9 @@ function handleOnclick(productId) {
         body: JSON.stringify(formData),
     })
         .then((response) => {
-            renderSection(".shopify-section-cart-icon-bubble")
+            console.log(response);
+            handleAsideCart(cartStatus);
+            renderSection(".shopify-section-cart-icon-bubble");
         })
         .catch((error) => {
             console.error("Error", error);
@@ -50,15 +52,104 @@ function handleOnclick(productId) {
 
 }
 
-function renderSection(elementId) {
+function handleAsideCart(){
+    let status = cartStatus;
+    let customCartElement = document.getElementById("custom-aside-cart");
+    if(!status){
+        fetch(rooturl + "cart.js", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error("Error", error);
+            });
+        customCartElement.children[0].classList.add("show");
+        cartStatus = true;
+    }
+    else{
+        customCartElement.children[0].classList.remove("show");
+        cartStatus = false;
+    }
+}
+
+function renderSection() {
     fetch(rooturl + '?section_id=cart-icon-bubble')
         .then(response => response.text())
         .then(data => {
-            console.log(data);
             let innerHTML = new DOMParser()
                 .parseFromString(data, 'text/html')
                 .getElementById('shopify-section-cart-icon-bubble').innerHTML;
 
             document.getElementById('cart-icon-bubble').innerHTML = innerHTML;
         });
+
+    fetch(rooturl + '?section_id=custom-cart')
+    .then(response => response.text())
+    .then(data => {
+        let innerHTML = new DOMParser()
+            .parseFromString(data, 'text/html');
+        
+        document.getElementById('custom-cart-content').innerHTML = innerHTML.getElementById('custom-cart-content').innerHTML;
+        document.getElementById('custom-cart-bottom').innerHTML = innerHTML.getElementById('custom-cart-bottom').innerHTML;
+    });
 }
+
+function updateItemFromCart(itemId , value, type, price){
+    let quantity = type == 'less' ? value-1 : value+1;
+    let labelElement = document.getElementById("quantity-label");
+    let itemTotalPrice = document.getElementById("itemTotalPrice");
+
+    labelElement.children[0].innerHTML = quantity;
+    itemTotalPrice.children[1].innerHTML = `<h5>${moneyWithCurrency(price * quantity)}</h5>`;
+
+    let formData = {  
+        updates: {
+            [itemId]: quantity,
+        }
+    };
+
+    fetch(rooturl + "cart/update.js", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+    })
+        .then((response) => {
+            console.log(response);
+            renderSection();
+        })
+        .catch((error) => {
+            console.error("Error", error);
+        });
+}
+
+function deleteItemFromCart(itemId){
+    
+    let formData = {  
+        id: itemId,
+        quantity: 0,   
+    };
+
+    fetch(rooturl + "cart/change.js", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+    })
+        .then((response) => {
+            console.log(response);
+            renderSection();
+        })
+        .catch((error) => {
+            console.error("Error", error);
+        });
+}
+
+

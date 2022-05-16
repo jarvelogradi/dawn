@@ -1,5 +1,10 @@
 {
   "sections": {
+    "custom_cart":{
+      "wrapper": "div",
+       "id": "custom-cart",
+      "type": "custom-cart"
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -56,6 +61,7 @@
     }
   },
   "order": [
+    "custom_cart",
     "image_banner",
     "featured_carrusel"
   ]
