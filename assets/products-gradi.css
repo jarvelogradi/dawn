@@ -141,20 +141,6 @@ li.breadcrumb-item.active>a {
     border-radius: 50%;
 }
 
-/* On mouse-over, add a grey background color */
-.checkmark.black, .container:hover input~.checkmark.black {
-    background-color: #000000;
-}
-.checkmark.white, .container:hover input~.checkmark.white {
-    background-color: #ffffff;
-}
-.checkmark.ocre , .container:hover input~.checkmark.ocre {
-    background-color: tan;
-}
-.checkmark.terracota, .container:hover input~.checkmark.terracota {
-    background-color: tomato;
-}
-
 /* When the radio button is checked, add a blue background */
 .container input:checked~.checkmark {
     background-color: #ffffff;
@@ -182,27 +168,6 @@ li.breadcrumb-item.active>a {
     background: white;
 }
 
-.container .checkmark.black:after{
-    background: rgb(0, 0, 0);
-}
-.container input:checked~.checkmark.black {
-    background-color: #1f1f1f;
-}
-.container .checkmark.white:after{
-    background: white;
-}
-.container input:checked~.checkmark.white {
-    background-color: #1f1f1f;
-}
-.container .checkmark.ocre:after{
-    background: tan;
-}
-.container input:checked~.checkmark.ocre {
-    background-color: #1f1f1f;
-}
-.container .checkmark.terracota:after{
-    background: tomato;
-}
-.container input:checked~.checkmark.terracota {
+.container input:checked~.checkmark {
     background-color: #1f1f1f;
 }

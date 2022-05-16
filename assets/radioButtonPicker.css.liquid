@@ -1,0 +1,16 @@
+{% assign colors = settings.color_list | split: ',' %}
+
+{% for color in colors %}
+  {% assign colorValue = color | split: ' ' %}
+  .checkmark.{{ colorValue | first }}, input~.checkmark.{{ colorValue | first }} {
+    background-color: {{ colorValue | last }};
+  }
+
+  .container .checkmark.{{ colorValue | first }}:after{
+    background: {{ colorValue | last }};
+  }
+{% endfor %} 
+
+
+
+

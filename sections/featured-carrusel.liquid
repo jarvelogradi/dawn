@@ -1,4 +1,5 @@
 {{ 'products-gradi.css' | asset_url | stylesheet_tag }}
+{{ 'radioButtonPicker.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'checksDinamically.js' | asset_url }}" defer="defer"></script>
 
 
@@ -16,22 +17,23 @@
         </li>
       </ol>
     </div>
+ 
 
     <div class="row">
       {% for product in collections['test'].products %}
       <div class="col-4">
         <div class="content-product">
           <div class="box-product__image">
-            <img class="product__image" src="{{ product.featured_media | image_url: width: 533 }}" width="100" height="100" loading="lazy"/>
+            <img id="productImage{{ product.id }}" class="product__image" src="{{ product.featured_media | image_url: width: 533 }}" width="100" height="100" loading="lazy"/>
           </div>
           <h2 style="margin: 5px 0px">{{ product.title }}</h2>
           <div>
             <form name="myChecks" class="products__variants">
               {% for variant in product.variants %}
-                   {%- if variant.title != "Default Title" -%}
+                   {%- if variant.title != "Default Title" -%} 
                     <label class="container">
                         <input type="radio" name="radioButton" value='{{ variant | json }}' onchange="handleChange(this);">
-                        <span class="checkmark {% if variant.title == "Negro" %} black {% endif %} {% if variant.title == "Ocre" %} ocre {% endif %} {% if variant.title == "Terracota" %} terracota {% endif %} {% if variant.title == "Blanco" %} white {% endif %}"></span>
+                        <span class="checkmark {{ variant.title }}"></span>
                     </label>
                    {%- endif -%}
               {% endfor %}
@@ -40,9 +42,12 @@
           <div class="text-ellipsis">
             <p>{{ product.description }}</p>
           </div>
+
+          <input id="inputData{{ product.id }}" type="hidden" value=""/>
+
           <h3 id="price{{ product.id }}" style="margin: 10px 0px">{{ product.price | money_with_currency }}</h3>
           <div class="box-content">
-              <button class="btn btn-primary btn-outline">Add to Cart</button>
+              <button class="btn btn-primary btn-outline" onclick="handleOnclick({{ product.id }})">Add to Cart</button>
           </div>
         </div>
       </div>
