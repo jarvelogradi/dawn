@@ -1194,12 +1194,12 @@
   {
     "name": "gradiweb",
     "settings": [
-     {
-      "type": "textarea",
-      "id": "color_list",
-      "label": "Colors",
-      "default": "ocre #d2b48c, terracota #ff6347, blanco #efefef, negro #000000, azul #00b7ff, verde #00ff84, gris #8a8a8a, amarillo #ffd900, rosa #f055bc, lila #c884da, floripepiado #00BD2C"
-     }
+      {
+        "type": "textarea",
+        "id": "color_list",
+        "label": "Colors",
+        "default": "ocre #d2b48c, terracota #ff6347, blanco #efefef, negro #000000, azul #00b7ff, verde #00ff84, gris #8a8a8a, amarillo #ffd900, rosa #f055bc, lila #c884da, floripepiado #00BD2C"
+      }
     ]
   }
 ]
