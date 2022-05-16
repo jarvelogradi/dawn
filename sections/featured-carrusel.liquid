@@ -13,12 +13,12 @@
           <a>Sections</a>
         </li>
         <li class="breadcrumb-item active">
-          <a>{{ page.title | escape }}</a>
+          <a>{{ section.settings.title | escape }}</a>
         </li>
       </ol>
     </div>
  
-    <h2>{{ section.settings.title }}</h2>
+    <h2 class="header-title">{{ section.settings.description | escape }}</h2>
 
     <div class="row">
       {% for product in collections['test'].products %}
@@ -66,8 +66,12 @@
     {
       "type": "text",
       "id": "title",
-      "label": "t:sections.featured-carrusel.settings.title.label",
-      "default": "Productos Gradi"
+      "label": "t:sections.featured-carrusel.settings.title.label"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "t:sections.featured-carrusel.settings.description.label"
     }
   ]
 }
