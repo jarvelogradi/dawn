@@ -1,4 +1,4 @@
-const rooturl = "http://127.0.0.1:9292/";
+const rooturl = "https://moises-gradi-store.myshopify.com/";
 let cartStatus = false;
 
 function handleChange(src) {

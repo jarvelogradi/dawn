@@ -1,9 +1,9 @@
 {
   "sections": {
-    "custom_cart":{
-      "wrapper": "div",
-       "id": "custom-cart",
-      "type": "custom-cart"
+    "custom_cart": {
+      "type": "custom-cart",
+      "settings": {
+      }
     },
     "image_banner": {
       "type": "image-banner",
