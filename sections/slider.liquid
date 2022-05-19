@@ -1,0 +1,57 @@
+<script src="{{ 'slider.js' | asset_url }}" defer="defer"></script>
+{{ 'slider-products.css' | asset_url | stylesheet_tag }}
+{{ 'radioButtonPicker.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'checksDinamically.js' | asset_url }}" defer="defer"></script>
+
+
+<!-- Slider main container -->
+
+<h1 style="margin:20px 80px 30px 80px">Productos Recomendados</h1>
+
+<div class="swiper" style="padding: 0 80px">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      {% for def in product.metafields.data_product %}
+        <div class="swiper-slide">
+            <div class="content-product">
+              <div class="box-product__image">
+                <img id="productImage{{ def[1].value.id }}" class="product__image" src="{{ def[1].value.featured_media | image_url: width: 533 }}" width="100" height="100" loading="lazy"/>
+              </div>
+              <h2 style="margin: 5px 0px">{{ def[1].value.title }}</h2>
+              <div>
+                <form name="myChecks" class="products__variants">
+                  {% for variant in def[1].value.variants %}
+                       {%- if variant.title != "Default Title" -%} 
+                        <label class="container">
+                            <input type="radio" name="radioButton" value='{{ variant | json }}' onchange="handleChange(this);">
+                            <span class="checkmark {{ variant.title }}"></span>
+                        </label>
+                       {%- endif -%}
+                  {% endfor %}
+                </form>
+              </div>
+              <div class="text-ellipsis" style="width: 240px">
+                <p>{{ def[1].value.description }}</p>
+              </div>
+    
+              <input id="inputData{{ def[1].value.id }}" type="hidden" value=""/>
+    
+              <h3 id="price{{ def[1].value.id }}" style="margin: 10px 0px">{{ def[1].value.price | money_with_currency }}</h3>
+              <div class="box-content" style="width: 240px">
+                  <button class="btn btn-primary btn-outline" onclick="handleOnclick({{ def[1].value.id }})">Add to Cart</button>
+              </div>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+  
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  
+    <!-- If we need scrollbar -->
+    <div class="swiper-scrollbar"></div>
+</div>
